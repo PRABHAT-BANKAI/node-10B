@@ -6,7 +6,7 @@
     <title>Document</title>
   </head>
   <body>
-    <form action="/insertAddData"  method="post">
+    <form action="/insertAddData" method="post">
       <table>
         <tr>
           <td>Name:</td>
@@ -30,5 +30,19 @@
         </tr>
       </table>
     </form>
+
+    <table border="">
+      <tr>
+        <td>name</td>
+        <td>password</td>
+      </tr>
+
+      <% userData.map((data)=>{ %>
+      <tr>
+        <td><%= data.userName %></td>
+        <td><%= data.password %></td>
+      </tr>
+      <% }) %>
+    </table>
   </body>
 </html>
