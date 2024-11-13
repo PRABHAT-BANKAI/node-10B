@@ -35,12 +35,19 @@
       <tr>
         <td>name</td>
         <td>password</td>
+        <td>action</td>
       </tr>
 
       <% userData.map((data)=>{ %>
       <tr>
         <td><%= data.userName %></td>
         <td><%= data.password %></td>
+        <td>
+          <!-- params -->
+          <a href="/deleteData/<%= data.id %> "><button>delete</button></a>
+          <!-- <a href="/deleteData/?id=<%= data.id %> "><button>delete</button></a> -->
+          <a href="/update/<%= data.id %> "><button>update</button></a>
+        </td>
       </tr>
       <% }) %>
     </table>
