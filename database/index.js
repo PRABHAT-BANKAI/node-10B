@@ -39,6 +39,7 @@ app.get("/deleteData/:id", async (req, res) => {
   res.redirect("back");
 });
 
+
 app.get("/update/:id", async (req, res) => {
   const storeData = await UserModel.findById(req.params.id);
   console.log(storeData);

@@ -8,7 +8,7 @@
   <body>
     <h1>update page</h1>
     <form action="/editData/<%= storeData.id %>" method="post">
-      <table>
+      <table border="">
         <tr>
           <td>Name:</td>
           <td>
@@ -29,6 +29,46 @@
               name="password"
               value="<%= storeData.password%>"
             />
+          </td>
+        </tr>
+
+        <tr>
+          <td>Gender</td>
+          <td>
+            <input type="radio" name="gender" value="male" <%= storeData.gender
+            === "male"? "checked":"" %> />male <input type="radio" name="gender"
+            value="female" <%= storeData.gender === "female"? "checked":"" %>
+            />female
+          </td>
+        </tr>
+        <tr>
+          <td>hobby</td>
+          <td>
+            <input type="checkbox" value="reading" name="hobby" <%=
+            storeData.hobby.includes("reading") ? "checked" : "" %> /> Reading
+            <input type="checkbox" value="coding" name="hobby" <%=
+            storeData.hobby.includes("coding") ? "checked" : "" %> /> coding
+            <input type="checkbox" value="cycling" name="hobby" <%=
+            storeData.hobby.includes("cycling") ? "checked" : "" %> /> cycling
+          </td>
+        </tr>
+        <tr>
+          <td>city</td>
+          <td>
+            <select name="city" id="">
+              <option value=""  >Select city</option>
+              <option value="rajkot" <%= storeData.city === "rajkot" ? "selected" :"" %>>rajkot</option>
+              <option value="surat"  <%= storeData.city === "surat" ? "selected" :"" %>>surat</option>
+              <option value="delhi"  <%= storeData.city === "delhi" ? "selected" :"" %>>delhi</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>description</td>
+          <td>
+            <textarea name="description">
+ <%= storeData.description %></textarea
+            >
           </td>
         </tr>
         <tr>
