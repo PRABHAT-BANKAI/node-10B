@@ -6,8 +6,9 @@ let port = 8080;
 const app = express();
 
 app.set("view engine", "ejs");
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
+
 app.use(express.urlencoded());
-app.use("/uploads", express.static(path.join(__dirname), "/uploads"));
 
 app.get("/", async (req, res) => {
   try {
