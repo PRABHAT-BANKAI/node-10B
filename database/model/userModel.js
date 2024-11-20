@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const multer = require("multer");
 const path = require("path"); //path.join(__dirname)
 
-const imagePath = "/uploads";
+const imagePath = "uploads";
 
 const userSchema = mongoose.Schema({
   userName: {

@@ -7,7 +7,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 // app.use("/uploads", express.static(path.join(__dirname), "/uploads"));
-app.use("/uploads", express.static(path.join(__dirname, "/uploads")));// correct syntax
+app.use("/uploads", express.static(path.join(__dirname, "/uploads"))); // correct syntax
 
 app.use(express.urlencoded());
 
@@ -28,11 +28,7 @@ app.post("/insertAddData", UserModel.imageUpload, async (req, res) => {
   // console.log(userName, password);
   try {
     if (req.file) {
-      req.body.image = path.join(
-        __dirname,
-        UserModel.imagePath,
-        req.file.filename
-      );
+      req.body.image = UserModel.imagePath + "/" + req.file.filename;
     }
     await UserModel.create(req.body);
     console.log("Data inserted successfully");
