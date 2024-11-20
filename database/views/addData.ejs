@@ -6,7 +6,7 @@
     <title>Document</title>
   </head>
   <body>
-    <form action="/insertAddData" method="post">
+    <form action="/insertAddData" method="post" enctype="multipart/form-data">
       <table border="">
         <tr>
           <td>Name:</td>
@@ -58,9 +58,16 @@
           <td></td>
           <td><button type="submit">add Data</button></td>
         </tr>
+        <tr>
+          <td>Image</td>
+          <td>
+            <input type="file" name="image" />
+          </td>
+        </tr>
       </table>
     </form>
-
+    <br />
+    <br /><br /><br /><br />
     <table border="">
       <tr>
         <td>name</td>
@@ -69,6 +76,7 @@
         <td>hobby</td>
         <td>city</td>
         <td>description</td>
+        <td>image</td>
         <td>action</td>
       </tr>
 
@@ -80,7 +88,7 @@
         <td><%= data.hobby %></td>
         <td><%= data.city %></td>
         <td><%= data.description %></td>
-
+        <td><img src="<%= data.image %>" alt="" /></td>
         <td>
           <!-- params -->
           <a href="/deleteData/<%= data.id %> "><button>delete</button></a>
