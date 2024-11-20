@@ -28,7 +28,12 @@ app.post("/insertAddData", UserModel.imageUpload, async (req, res) => {
   // console.log(userName, password);
   try {
     if (req.file) {
-      req.body.image = UserModel.imagePath + "/" + req.file.filename;
+      // req.body.image = path.join(
+      //   __dirname,
+      //   UserModel.imagePath+
+      //   req.file.filename
+      // );
+      req.body.image = UserModel.imagePath + "/" + req.file.filename; // correct syntax
     }
     await UserModel.create(req.body);
     console.log("Data inserted successfully");
