@@ -2,6 +2,7 @@ const express = require("express");
 const connection = require("./config/db");
 const UserModel = require("./model/userModel");
 const path = require("path");
+const fs = require("fs");
 let port = 8080;
 const app = express();
 
@@ -45,11 +46,20 @@ app.post("/insertAddData", UserModel.imageUpload, async (req, res) => {
 });
 
 app.get("/deleteData/:id", async (req, res) => {
-  console.log(req.params.id);
-
-  await UserModel.findByIdAndDelete(req.params.id);
-  console.log("Data deleted successfully");
-  res.redirect("back");
+  // console.log(req.params.id);
+  try {
+    const getDataUser = await UserModel.findById(req.params.id);
+    console.log(getDataUser);
+    if (getDataUser) {
+      fs.unlinkSync(path.join(__dirname, getDataUser.image));
+      
+    }
+    await UserModel.findByIdAndDelete(req.params.id);
+    console.log("Data deleted successfully");
+    res.redirect("back");
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.get("/update/:id", async (req, res) => {
@@ -58,10 +68,16 @@ app.get("/update/:id", async (req, res) => {
   res.render("updateData", { storeData });
 });
 
-app.post("/editData/:id", async (req, res) => {
+app.post("/editData/:id", UserModel.imageUpload, async (req, res) => {
   console.log(req.params.id);
   console.log(req.body);
+  console.log(req.file);
   try {
+    if (req.file) {
+      const getDataUser = await UserModel.findById(req.params.id);
+      fs.unlinkSync(path.join(__dirname, getDataUser.image));
+    }
+    req.body.image = UserModel.imagePath + "/" + req.file.filename;
     await UserModel.findByIdAndUpdate(req.params.id, req.body);
     console.log("Data updated successfully");
     res.redirect("/");

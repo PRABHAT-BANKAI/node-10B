@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>update page</h1>
-    <form action="/editData/<%= storeData.id %>" method="post">
+    <form action="/editData/<%= storeData.id %>" method="post" enctype="multipart/form-data">
       <table border="">
         <tr>
           <td>Name:</td>
@@ -69,6 +69,13 @@
             <textarea name="description">
  <%= storeData.description %></textarea
             >
+          </td>
+        </tr>
+        <tr>
+          <td>Image </td>
+          <td>
+            <input type="file" name="image" />
+            <img src="/<%= storeData.image %>" height="100" alt="">
           </td>
         </tr>
         <tr>
