@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Home Page</h1>
+
+    <form action="/addData" method="post" enctype="multipart/form-data">
+      Name <input type="text" name="userName" />
+
+      <br />
+      Image Upload <input type="file" name="image" />
+      <br />
+
+      <input type="submit" value="submit" />
+    </form>
+
+    <table border="">
+      <tr>
+        <td>name</td>
+        <td>image</td>
+      </tr>
+      <% getUserData.map((user)=>{ %>
+      <tr>
+        <td><%= user.userName %></td>
+        <td><img src="<%= user.image %>" height="100" alt="image" /></td>
+      </tr>
+      <% }) %>
+    </table>
+  </body>
+</html>
