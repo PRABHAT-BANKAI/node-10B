@@ -3,10 +3,10 @@ const dashbaordRouter = require("./routes/dashboard");
 const connection = require("./config/db");
 
 const app = express();
-const port = 8080;
+const port = 8084;
 
 app.set("view engine", "ejs");
-
+app.use(express.urlencoded());
 app.use("/", dashbaordRouter);
 
 app.listen(port, (error) => {
