@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>dashboard</h1>
-    <form action="/insertData" method="post">
+    <form action="/insertData" method="post" enctype="multipart/form-data">
       <table border="">
         <tr>
           <td>name</td>
@@ -26,6 +26,10 @@
           </td>
         </tr>
         <tr>
+          <td>image</td>
+          <td><input type="file" name="image" /></td>
+        </tr>
+        <tr>
           <td></td>
           <td><input type="submit" value="submit" /></td>
         </tr>
@@ -36,12 +40,14 @@
       <tr>
         <td>name</td>
         <td>email</td>
+        <td>image</td>
         <td>action</td>
       </tr>
       <% studentData.map((student)=>{ %>
       <tr>
         <td><%= student.studentName %></td>
         <td><%= student.email %></td>
+        <td><img src="<%= student.image %>" alt="image" height="100" /></td>
         <td>
           <a href="/deleteData/<%= student.id %>"><button>delete</button></a>
           <a href="/updateData/<%= student.id %>"><button>update</button></a>

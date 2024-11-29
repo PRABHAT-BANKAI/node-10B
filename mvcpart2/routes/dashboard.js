@@ -6,18 +6,26 @@ const dashbaordRouter = express.Router();
 
 dashbaordRouter.get("/", homeDashboard);
 
-dashbaordRouter.post("/insertData", async (req, res) => {
-  console.log(req.body);
-  try {
-    await StudentModel.create(req.body);
-    console.log("data added successfully");
-    res.redirect("/");
-  } catch (err) {
-    console.error(err);
-    res.redirect("back");
-    return;
+dashbaordRouter.post(
+  "/insertData",
+  StudentModel.uploadImage,
+  async (req, res) => {
+    // console.log(req.file);
+    // console.log(req.body);
+    try {
+      if (req.file) {
+        req.body.image = StudentModel.imagePath + "/" + req.file.filename;
+      }
+      await StudentModel.create(req.body);
+      console.log("data added successfully");
+      res.redirect("/");
+    } catch (err) {
+      console.error(err);
+      res.redirect("back");
+      return;
+    }
   }
-});
+);
 
 dashbaordRouter.get("/deleteData/:id", async (req, res) => {
   try {
