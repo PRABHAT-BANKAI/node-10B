@@ -50,14 +50,7 @@
       <!-- Login box.scss -->
       <!-- ============================================================== -->
       <div
-        class="
-          auth-wrapper
-          d-flex
-          no-block
-          justify-content-center
-          align-items-center
-          bg-dark
-        "
+        class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark"
       >
         <div class="auth-box bg-dark border-top border-secondary">
           <div id="loginform">
@@ -70,7 +63,8 @@
             <form
               class="form-horizontal mt-3"
               id="loginform"
-              action="index.html"
+              action="/login"
+              method="post"
             >
               <div class="row pb-4">
                 <div class="col-12">
@@ -87,6 +81,7 @@
                       class="form-control form-control-lg"
                       placeholder="Username"
                       aria-label="Username"
+                      name="userName"
                       aria-describedby="basic-addon1"
                       required=""
                     />
@@ -105,6 +100,7 @@
                       placeholder="Password"
                       aria-label="Password"
                       aria-describedby="basic-addon1"
+                      name="password"
                       required=""
                     />
                   </div>
@@ -121,6 +117,8 @@
                       >
                         <i class="mdi mdi-lock fs-4 me-1"></i> Lost password?
                       </button>
+
+                     
                       <button
                         class="btn btn-success float-end text-white"
                         type="submit"
@@ -132,6 +130,14 @@
                 </div>
               </div>
             </form>
+            <a href="/signUp">
+              <button
+                class="btn btn-success float-end text-white ms-5"
+                style="background-color: aqua"
+              >
+                create account
+              </button></a
+            >
           </div>
           <div id="recoverform">
             <div class="text-center">
