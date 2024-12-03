@@ -4,6 +4,11 @@ const UserModel = require("../model/UserModel");
 const dashboardRouter = express.Router();
 
 dashboardRouter.get("/", (req, res) => {
+  const cookieData = req.cookies["auth"];
+  if(cookieData){
+    res.redirect("/dashboard");
+    return;
+  }
   res.render("signIn");
 });
 
@@ -23,6 +28,11 @@ dashboardRouter.post("/insertData", async (req, res) => {
 });
 
 dashboardRouter.get("/dashboard", (req, res) => {
+  const cookieData = req.cookies["auth"];
+  console.log(cookieData);
+  if(!cookieData){
+    res.redirect("/");
+  }
   res.render("dashboard");
 });
 
@@ -42,10 +52,14 @@ dashboardRouter.post("/login", async (req, res) => {
     res.redirect("/");
     return;
   }
-
+  res.cookie("auth", getUserData);
   res.redirect("/dashboard");
 
   console.log(getUserData);
+});
+
+dashboardRouter.get("/viewAdmin", (req, res) => {
+  res.render("viewAdmin");
 });
 
 module.exports = dashboardRouter;

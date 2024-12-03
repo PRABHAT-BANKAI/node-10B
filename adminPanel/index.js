@@ -2,12 +2,14 @@ const express = require("express");
 const dashboardRouter = require("./routes/dashboardRoute");
 const path = require("path");
 const connection = require("./config/db");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 app.set("view engine", "ejs");
 app.use("/assets", express.static(path.join(__dirname, "/assets")));
 app.use(express.urlencoded());
+app.use(cookieParser());
 
 app.use("/", dashboardRouter);
 
@@ -16,6 +18,6 @@ app.listen(8080, (error) => {
     console.log("Error starting the server");
     return;
   }
- connection()
+  connection();
   console.log("Server is running on port 8080");
 });
