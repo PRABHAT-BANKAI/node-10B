@@ -5,7 +5,7 @@ const dashboardRouter = express.Router();
 
 dashboardRouter.get("/", (req, res) => {
   const cookieData = req.cookies["auth"];
-  if(cookieData){
+  if (cookieData) {
     res.redirect("/dashboard");
     return;
   }
@@ -30,7 +30,7 @@ dashboardRouter.post("/insertData", async (req, res) => {
 dashboardRouter.get("/dashboard", (req, res) => {
   const cookieData = req.cookies["auth"];
   console.log(cookieData);
-  if(!cookieData){
+  if (!cookieData) {
     res.redirect("/");
   }
   res.render("dashboard");
@@ -59,7 +59,20 @@ dashboardRouter.post("/login", async (req, res) => {
 });
 
 dashboardRouter.get("/viewAdmin", (req, res) => {
-  res.render("viewAdmin");
+  const cookieData = req.cookies["auth"];
+  if (cookieData) {
+    res.render("viewAdmin");
+    return;
+  }
+  res.render("signIn");
 });
 
+dashboardRouter.get("/changePassword", (req, res) => {
+  res.render("changePassword");
+});
+
+dashboardRouter.get("/logout", (req, res)=>{
+  res.clearCookie("auth");
+  res.redirect("/");
+})
 module.exports = dashboardRouter;
