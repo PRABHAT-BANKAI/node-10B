@@ -7,15 +7,17 @@ passport.use(
   new PassportStrategy(
     { usernameField: "userName" },
     async (userName, password, done) => {
+ 
       const getUserData = await UserModel.findOne({ userName: userName });
+      console.log(getUserData);
       if (getUserData) {
-        if (getUserData.password === password) {
-          done(null, getUserData);
+        if (getUserData.password == password) {
+          return done(null, getUserData);
         } else {
-          done(null, false);
+          return done(null, false);
         }
       } else {
-        done(null, false);
+        return done(null, false);
       }
     }
   )
@@ -23,19 +25,21 @@ passport.use(
 
 passport.serializeUser(async (user, done) => {
   const userData = await UserModel.findById(user.id);
+
   if (userData) {
-    done(null, userData);
+    return done(null, userData.id);
   } else {
-    done(null, false);
+    return done(null, false);
   }
 });
 
-passport.deserializeUser(async (user, done) => {
-  const userData = await UserModel.findById(user.id);
+passport.deserializeUser(async (id, done) => {
+  const userData = await UserModel.findById(id);
+
   if (userData) {
-    done(null, userData);
+    return done(null, userData);
   } else {
-    done(null, false);
+    return done(null, false);
   }
 });
 

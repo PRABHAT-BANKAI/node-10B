@@ -1,14 +1,17 @@
 const express = require("express");
 const UserModel = require("../model/UserModel");
+const passport = require("passport");
 
 const dashboardRouter = express.Router();
 
 dashboardRouter.get("/", (req, res) => {
-  const cookieData = req.cookies["auth"];
-  if (cookieData) {
-    res.redirect("/dashboard");
-    return;
-  }
+  // const cookieData = req.cookies["auth"];
+  // if (cookieData) {
+
+  // res.redirect("/dashboard");
+
+  //   return;
+  // }
   res.render("signIn");
 });
 
@@ -28,35 +31,21 @@ dashboardRouter.post("/insertData", async (req, res) => {
 });
 
 dashboardRouter.get("/dashboard", (req, res) => {
-  const cookieData = req.cookies["auth"];
-  console.log(cookieData);
-  if (!cookieData) {
-    res.redirect("/");
-  }
+  // const cookieData = req.cookies["auth"];
+  // console.log(cookieData);
+  // if (!cookieData) {
+  // res.redirect("/");
+  // }
   res.render("dashboard");
 });
 
-dashboardRouter.post("/login" ,async (req, res) => {
-  const { userName, password } = req.body;
-  console.log(userName);
-
-  const getUserData = await UserModel.findOne({ userName: userName });
-  if (getUserData) {
-    if (getUserData.password !== password) {
-      console.log("Invalid credentials");
-      res.redirect("/");
-      return;
-    }
-  } else {
-    console.log("User not found");
-    res.redirect("/");
-    return;
+dashboardRouter.post(
+  "/login",
+  passport.authenticate("local", { failureRedirect: "/" }),
+  async (req, res) => {
+    return res.redirect("/dashboard");
   }
-  res.cookie("auth", getUserData);
-  res.redirect("/dashboard");
-
-  console.log(getUserData);
-});
+);
 
 dashboardRouter.get("/viewAdmin", (req, res) => {
   const cookieData = req.cookies["auth"];
