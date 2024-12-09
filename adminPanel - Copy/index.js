@@ -11,7 +11,7 @@ const app = express();
 
 app.set("view engine", "ejs");
 app.use("/assets", express.static(path.join(__dirname, "/assets")));
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(
   session({
@@ -23,6 +23,7 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.setUser);
 
 app.use("/", dashboardRouter);
 

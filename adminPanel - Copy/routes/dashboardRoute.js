@@ -1,6 +1,6 @@
 const express = require("express");
 const UserModel = require("../model/UserModel");
-const passport = require("passport");
+const passport = require("../config/passport-local");
 
 const dashboardRouter = express.Router();
 
@@ -64,7 +64,11 @@ dashboardRouter.post("/getChangePassword", (req, res) => {
   console.log(req.body);
 });
 dashboardRouter.get("/logout", (req, res) => {
-  res.clearCookie("auth");
+  // res.clearCookie("auth");
+  req.session.destroy(function (err) {
+    // cannot access session here
+    console.log(err);
+  });
   res.redirect("/");
 });
 module.exports = dashboardRouter;

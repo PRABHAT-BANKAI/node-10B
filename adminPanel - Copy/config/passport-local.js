@@ -7,7 +7,6 @@ passport.use(
   new PassportStrategy(
     { usernameField: "userName" },
     async (userName, password, done) => {
- 
       const getUserData = await UserModel.findOne({ userName: userName });
       console.log(getUserData);
       if (getUserData) {
@@ -42,5 +41,19 @@ passport.deserializeUser(async (id, done) => {
     return done(null, false);
   }
 });
+
+passport.isAuth = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    //req.isAuthenticated() will return true if user is logged in
+    next();
+  } else {
+    res.redirect("/login");
+  }
+};
+
+passport.setUser = (req, res, next) => {
+  res.locals.user = req.user;
+  next();
+};
 
 module.exports = passport;
