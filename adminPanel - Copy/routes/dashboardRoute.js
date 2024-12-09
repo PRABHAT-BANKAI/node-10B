@@ -13,6 +13,7 @@ dashboardRouter.get("/", (req, res) => {
   //   return;
   // }
   res.render("signIn");
+  
 });
 
 dashboardRouter.get("/signup", (req, res) => {
@@ -30,7 +31,7 @@ dashboardRouter.post("/insertData", async (req, res) => {
   }
 });
 
-dashboardRouter.get("/dashboard", (req, res) => {
+dashboardRouter.get("/dashboard",passport.isAuth, (req, res) => {
   // const cookieData = req.cookies["auth"];
   // console.log(cookieData);
   // if (!cookieData) {
@@ -67,7 +68,7 @@ dashboardRouter.get("/logout", (req, res) => {
   // res.clearCookie("auth");
   req.session.destroy(function (err) {
     // cannot access session here
-    console.log(err);
+    // console.log(err);
   });
   res.redirect("/");
 });
