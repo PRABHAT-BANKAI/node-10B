@@ -13,7 +13,6 @@ dashboardRouter.get("/", (req, res) => {
   //   return;
   // }
   res.render("signIn");
-  
 });
 
 dashboardRouter.get("/signup", (req, res) => {
@@ -31,7 +30,7 @@ dashboardRouter.post("/insertData", async (req, res) => {
   }
 });
 
-dashboardRouter.get("/dashboard",passport.isAuth, (req, res) => {
+dashboardRouter.get("/dashboard", passport.isAuth, (req, res) => {
   // const cookieData = req.cookies["auth"];
   // console.log(cookieData);
   // if (!cookieData) {
@@ -44,7 +43,15 @@ dashboardRouter.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/" }),
   async (req, res) => {
-    return res.redirect("/dashboard");
+    try{
+      req.flash("success", "login Successfully");
+      return res.redirect("/dashboard");
+    }catch(err){
+      req.flash("error", "invalid login");
+      console.log(err)
+    }
+
+
   }
 );
 

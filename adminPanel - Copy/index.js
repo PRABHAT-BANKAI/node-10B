@@ -5,11 +5,14 @@ const connection = require("./config/db");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
 const session = require("express-session");
+const flash = require("connect-flash");
 const PassportStrategy = require("./config/passport-local");
+const connectFlash = require("./config/flash");
 
 const app = express();
 
 app.set("view engine", "ejs");
+app.use(flash());
 app.use("/assets", express.static(path.join(__dirname, "/assets")));
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -24,10 +27,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.setUser);
+app.use(connectFlash.setFlash);
 
 app.use("/", dashboardRouter);
 
-app.listen(8080, (error) => {
+app.listen(8081, (error) => {
   if (error) {
     console.log("Error starting the server");
     return;
