@@ -2,6 +2,7 @@ const express = require("express");
 const UserModel = require("../model/UserModel");
 const passport = require("../config/passport-local");
 var nodemailer = require("nodemailer");
+const { redirect } = require("express/lib/response");
 const dashboardRouter = express.Router();
 
 dashboardRouter.get("/", (req, res) => {
@@ -124,5 +125,18 @@ dashboardRouter.post("/checkOtp", (req, res) => {
   const cookieOtp = req.cookies["getOtp"];
   // console.log(cookieOtp);
   // console.log(req.body);
+  if(cookieOtp == req.body.otp){
+    redirect("/changeOtp");
+  }
 });
+
+
+dashboardRouter.get("/addCategory", (req, res) => {
+  res.render("addCategory");
+})
+
+
+dashboardRouter.post("/insertCategory", (req, res) => {
+  console.log(req.body)
+})
 module.exports = dashboardRouter;
