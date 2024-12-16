@@ -165,7 +165,7 @@ dashboardRouter.get("/addSubCategory", async (req, res) => {
   }
 });
 
-dashboardRouter.post("/insertCategory", async (req, res) => {
+dashboardRouter.post("/insertSubCategory", async (req, res) => {
   try {
     await SubCategoryModel.create(req.body);
     console.log("Subcategory created");
