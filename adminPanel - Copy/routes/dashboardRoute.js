@@ -3,6 +3,8 @@ const UserModel = require("../model/UserModel");
 const passport = require("../config/passport-local");
 var nodemailer = require("nodemailer");
 const { redirect } = require("express/lib/response");
+const CategoryModel = require("../model/CategoryModel");
+const SubCategoryModel = require("../model/subCategory");
 const dashboardRouter = express.Router();
 
 dashboardRouter.get("/", (req, res) => {
@@ -125,18 +127,50 @@ dashboardRouter.post("/checkOtp", (req, res) => {
   const cookieOtp = req.cookies["getOtp"];
   // console.log(cookieOtp);
   // console.log(req.body);
-  if(cookieOtp == req.body.otp){
+  if (cookieOtp == req.body.otp) {
     redirect("/changeOtp");
   }
 });
 
-
 dashboardRouter.get("/addCategory", (req, res) => {
   res.render("addCategory");
-})
+});
 
+dashboardRouter.post("/insertCategory", async (req, res) => {
+  try {
+    console.log(req.body);
+    await CategoryModel.create(req.body);
+    console.log("Category created");
+    res.redirect("/dashboard");
+  } catch (err) {
+    console.log(err);
+  }
+});
 
-dashboardRouter.post("/insertCategory", (req, res) => {
-  console.log(req.body)
-})
+dashboardRouter.get("/viewCategory", async (req, res) => {
+  try {
+    const categories = await CategoryModel.find({});
+    res.render("viewCategory", { categories });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+dashboardRouter.get("/addSubCategory", async (req, res) => {
+  try {
+    const categories = await CategoryModel.find({});
+    res.render("addSubCategory", { categories: categories });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+dashboardRouter.post("/insertCategory", async (req, res) => {
+  try {
+    await SubCategoryModel.create(req.body);
+    console.log("Subcategory created");
+  } catch (err) {
+    console.log(err);
+  }
+});
 module.exports = dashboardRouter;
