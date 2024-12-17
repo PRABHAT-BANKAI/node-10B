@@ -169,8 +169,26 @@ dashboardRouter.post("/insertSubCategory", async (req, res) => {
   try {
     await SubCategoryModel.create(req.body);
     console.log("Subcategory created");
+    res.redirect("back")
   } catch (err) {
     console.log(err);
   }
 });
+
+
+dashboardRouter.get("/viewSubCategory", async (req, res) => {
+ let getData = await SubCategoryModel.find().populate("categoryId").exec();
+console.log(getData)
+  res.render("viewSubCategory",{getData})
+})
 module.exports = dashboardRouter;
+
+
+
+
+///
+// dashboardRouter.get("/viewSubCategory", async (req, res) => {
+//   let getData = await SubCategoryModel.find().populate("categoryId").populate("subCategoryId").exec();
+//  console.log(getData)
+//    res.render("viewSubCategory",{getData})
+//  })
