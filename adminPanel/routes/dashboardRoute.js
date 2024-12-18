@@ -1,16 +1,10 @@
 const express = require("express");
 const UserModel = require("../model/UserModel");
+const { login } = require("../controllers/dasboard");
 
 const dashboardRouter = express.Router();
 
-dashboardRouter.get("/", (req, res) => {
-  const cookieData = req.cookies["auth"];
-  if (cookieData) {
-    res.redirect("/dashboard");
-    return;
-  }
-  res.render("signIn");
-});
+dashboardRouter.get("/",login);
 
 dashboardRouter.get("/signup", (req, res) => {
   res.render("signup");
