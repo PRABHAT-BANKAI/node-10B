@@ -1,7 +1,7 @@
 const express = require("express");
 const { connection } = require("./config/db");
 const studentRouter = require("./routes/studentRoute");
-const PORT = 8082;
+const PORT = 8081;
 const app = express();
 
 app.use(express.urlencoded());
