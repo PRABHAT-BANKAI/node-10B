@@ -27,19 +27,18 @@ UserRouter.post("/login", async (req, res) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email });
     console.log(user);
-
-    if (await bcrypt.compare(req.body.password, user.password)) {
-      const token = jwt.sign(
-        { user },
-        process.env.SECRET_KEY,
-        {
+    if (user) {
+      if (await bcrypt.compare(req.body.password, user.password)) {
+        const token = jwt.sign({ user }, process.env.SECRET_KEY, {
           expiresIn: "1h",
-        }
-      );
+        });
 
-      return res.status(200).json({ message: "login Successfully", token });
+        return res.status(200).json({ message: "login Successfully", token });
+      } else {
+        res.status(400).json({ message: "invalid Password" });
+      }
     } else {
-      res.status(400).json({ message: "invalid Password" });
+      res.status(404).json({ message: "invalid email" });
     }
   } catch (err) {
     console.log(err);
