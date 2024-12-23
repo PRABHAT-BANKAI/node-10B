@@ -23,10 +23,9 @@ UserRouter.post("/register", async (req, res) => {
 });
 
 UserRouter.post("/login", async (req, res) => {
-  console.log(req.body);
+
   try {
     const user = await UserModel.findOne({ email: req.body.email });
-    console.log(user);
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
         const token = jwt.sign({ user }, process.env.SECRET_KEY, {
