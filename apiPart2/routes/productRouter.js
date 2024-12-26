@@ -3,8 +3,8 @@ const express = require("express");
 const productRouter = express.Router();
 
 productRouter.get("/", (req, res) => {
+  console.log(req.body);
 
-  // const todolist = await todomodel.find().popuplate("usertodolist")
   res.status(200).json({ message: "Product Page" });
 });
 
